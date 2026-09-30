@@ -2,7 +2,7 @@
 
 A voice tutor that teaches ten words people use at work, then talks you through using each one out loud.
 
-**Live:** _link added after deploy_
+**Live:** https://wordy-tutor.netlify.app
 
 You hear a word, its meaning and an example. You answer by speaking a sentence of your own. Wordy tells you how it
 landed, gives you one retry if the sense was off, and brings missed words back at the end. You can interrupt at any
