@@ -46,49 +46,26 @@
 
       <section id="view-about" class="about" hidden>
         <h2>About Wordy</h2>
+        <p>I made this as a small prototype. It teaches you ten words that come up a lot at work, stuff like mitigate or
+          bottleneck, and then makes you actually use them out loud.</p>
+        <p>For each word it tells you what it means and gives you an example. Then you say a sentence with it and it
+          tells you if you got it right. Get it wrong and you get one more go. Miss it again and it comes back at the
+          end.</p>
+        <p>You can just talk to it while you're going. Ask what a word means, ask for another example, say "next" to
+          skip it, or say "practise" and a word to go back to one. If hands-free is on, the mic turns on by itself once
+          it's done talking, so you don't have to click anything.</p>
 
-        <h3>What it is</h3>
-        <p>A voice tutor for ten words that come up at work and in interviews. It introduces a word, then holds a
-          conversation about it. You answer out loud, and you can cut in at any point to ask what the word means, ask for
-          another example, or say next to move on.</p>
+        <h3>How it works</h3>
+        <p>Your browser turns what you said into text and sends it to a small server function. That function asks a
+          model on Groq whether you used the word right and what to say back, and your browser reads the reply out.</p>
+        <p>The model doesn't keep score though, the app does. So even if the model says something weird, it can't skip a
+          word or mark one right by accident.</p>
+        <p>If the model is slow or down, it switches to a much dumber checker that runs in your browser, so the lesson
+          doesn't just stop. The line at the top tells you which one is answering.</p>
 
-        <h3>How a turn works</h3>
-        <p>Your voice goes through the browser's speech recognition and becomes text. The text goes to the tutor, a
-          language model on Groq, which
-          sends back two things: a spoken reply, and a verdict on your sentence. The verdict is one of correct, wrong
-          sense, word missing, needs a full sentence, a question, or a skip. The reply is read aloud, and with hands-free
-          on the mic opens again as soon as it finishes, so it runs like a phone call.</p>
-
-        <h3>Who decides what</h3>
-        <p>The language model writes the replies. The page keeps the score. It counts attempts, gives each word one retry,
-          sends a missed word to the back of the queue for a second look, and decides when to move on. Keeping progress
-          out of the model means a chatty or confused reply can never skip a word or mark one cleared by accident.</p>
-
-        <h3>Going back to a word</h3>
-        <p>Say &ldquo;practise mitigate&rdquo; or &ldquo;let's do bottleneck again&rdquo;, or tap any word in The set. The word
-          you were on steps aside and comes straight back after, with no penalty. Practising a word you already cleared
-          can't cost you anything: get it right and it stays cleared, miss it and it still stays cleared. After the set
-          is finished, this runs a one-word session.</p>
-
-        <h3>When the model is unavailable</h3>
-        <p>If the tutor service does not answer within a few seconds, the page switches to a rule-based tutor that runs in
-          the browser. It checks that the word was said, that there is a real sentence around it, and that the sentence
-          sits near the right meaning. It is blunter than the model, but the lesson keeps going. The line above the
-          conversation always shows which tutor is answering.</p>
-
-        <h3>Why production, not recognition</h3>
-        <p>Flashcards test whether you recognise a word. Using it inside a sentence you made up is what moves it into your
-          active vocabulary, and the mistake that matters is not spelling. It is using a word confidently in the wrong
-          sense, which is exactly what a text quiz cannot catch.</p>
-
-        <h3>What a real version needs</h3>
-        <p>A review schedule per learner so words return days later, not minutes. Word sets chosen by goal, such as
-          interviews, sales calls or a specific exam. Pronunciation feedback. And a hosted speech model, because browser
-          recognition is missing on Firefox and weak on low-end Android phones.</p>
-
-        <h3>Browser support</h3>
-        <p>Voice works in Chrome and Edge. Everywhere else, or if the microphone is blocked, you can type your answers and
-          everything else behaves the same.</p>
+        <h3>What it's bad at</h3>
+        <p>Voice only works in Chrome and Edge, anywhere else you'll have to type. It uses whatever voice your browser
+          has, so it sounds a bit different on every device. And if you reload the page your progress is gone.</p>
       </section>
     </div>
 

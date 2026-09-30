@@ -176,6 +176,7 @@ body.speaking #hear{color:var(--blue)}
 .about h2{font-size:20px; font-weight:400; margin:0 0 14px; color:var(--fg)}
 .about h3{font-size:14px; font-weight:500; margin:20px 0 4px; color:var(--fg)}
 .about p{margin:0; font-size:14px; color:var(--fg-snippet)}
+.about p + p{margin-top:10px}
 
 /* ---------- composer ---------- */
 .composer{
