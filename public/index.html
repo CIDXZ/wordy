@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wordy</title>
+<meta name="description" content="A voice tutor that teaches ten work words, then talks you through using each one out loud.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231a73e8' d='M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3m5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+</head>
+<body class="has-composer">
+
+<header class="top">
+  <div class="wrap">
+    <div class="top-row">
+      <span class="brand">Wordy</span>
+      <div class="qbox" id="qbox">
+        <svg class="qico" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.47 6.47 0 0 0 1.57-4.23 6.5 6.5 0 1 0-6.5 6.5c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9"/></svg>
+        <span class="query" id="query"><span class="ph">ten words for work</span></span>
+        <button class="iconbtn" id="hear" type="button" aria-label="Hear the current word" disabled>
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77"/></svg>
+        </button>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button class="tab sel" id="tab-practice" role="tab" aria-selected="true" type="button">Practice</button>
+      <button class="tab" id="tab-set" role="tab" aria-selected="false" type="button">The set</button>
+      <button class="tab" id="tab-about" role="tab" aria-selected="false" type="button">About</button>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <main class="grid">
+    <div class="col">
+      <p class="stats" id="stats"></p>
+
+      <section id="view-practice">
+        <div class="thread" id="thread" aria-live="polite"></div>
+      </section>
+
+      <section id="view-set" class="setlist" hidden></section>
+
+      <section id="view-about" class="about" hidden>
+        <h2>About Wordy</h2>
+
+        <h3>What it is</h3>
+        <p>A voice tutor for ten words that come up at work and in interviews. It introduces a word, then holds a
+          conversation about it. You answer out loud, and you can cut in at any point to ask what the word means, ask for
+          another example, or say next to move on.</p>
+
+        <h3>How a turn works</h3>
+        <p>Your voice goes through the browser's speech recognition and becomes text. The text goes to the tutor, a
+          language model on Groq, which
+          sends back two things: a spoken reply, and a verdict on your sentence. The verdict is one of correct, wrong
+          sense, word missing, needs a full sentence, a question, or a skip. The reply is read aloud, and with hands-free
+          on the mic opens again as soon as it finishes, so it runs like a phone call.</p>
+
+        <h3>Who decides what</h3>
+        <p>The language model writes the replies. The page keeps the score. It counts attempts, gives each word one retry,
+          sends a missed word to the back of the queue for a second look, and decides when to move on. Keeping progress
+          out of the model means a chatty or confused reply can never skip a word or mark one cleared by accident.</p>
+
+        <h3>Going back to a word</h3>
+        <p>Say &ldquo;practise mitigate&rdquo; or &ldquo;let's do bottleneck again&rdquo;, or tap any word in The set. The word
+          you were on steps aside and comes straight back after, with no penalty. Practising a word you already cleared
+          can't cost you anything: get it right and it stays cleared, miss it and it still stays cleared. After the set
+          is finished, this runs a one-word session.</p>
+
+        <h3>When the model is unavailable</h3>
+        <p>If the tutor service does not answer within a few seconds, the page switches to a rule-based tutor that runs in
+          the browser. It checks that the word was said, that there is a real sentence around it, and that the sentence
+          sits near the right meaning. It is blunter than the model, but the lesson keeps going. The line above the
+          conversation always shows which tutor is answering.</p>
+
+        <h3>Why production, not recognition</h3>
+        <p>Flashcards test whether you recognise a word. Using it inside a sentence you made up is what moves it into your
+          active vocabulary, and the mistake that matters is not spelling. It is using a word confidently in the wrong
+          sense, which is exactly what a text quiz cannot catch.</p>
+
+        <h3>What a real version needs</h3>
+        <p>A review schedule per learner so words return days later, not minutes. Word sets chosen by goal, such as
+          interviews, sales calls or a specific exam. Pronunciation feedback. And a hosted speech model, because browser
+          recognition is missing on Firefox and weak on low-end Android phones.</p>
+
+        <h3>Browser support</h3>
+        <p>Voice works in Chrome and Edge. Everywhere else, or if the microphone is blocked, you can type your answers and
+          everything else behaves the same.</p>
+      </section>
+    </div>
+
+    <aside class="side" id="side">
+      <div class="kp">
+        <div id="kpBody"></div>
+        <div class="kp-sec kp-foot">
+          <div class="ticks" id="ticks" aria-hidden="true"></div>
+          <p class="ticks-key"><span class="k-on">green</span> cleared &middot; <span class="k-cur">blue</span> now &middot; <span class="k-due">red</span> coming back</p>
+        </div>
+      </div>
+    </aside>
+  </main>
+</div>
+
+<div class="composer" id="composer">
+  <div class="wrap">
+    <div class="grid">
+      <div class="col">
+        <form class="pill" id="pill" autocomplete="off">
+          <input id="input" type="text" aria-label="Your answer" autocomplete="off">
+          <button class="iconbtn mic" id="mic" type="button" aria-label="Answer by voice">
+            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3m5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72z"/></svg>
+          </button>
+          <button class="iconbtn send" id="send" type="submit" aria-label="Send" disabled>
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3.4 20.4 20.85 12.9a1 1 0 0 0 0-1.8L3.4 3.6a.99.99 0 0 0-1.39.91L2 9.12c0 .5.37.93.87.99L17 12 2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91"/></svg>
+          </button>
+        </form>
+        <div class="under">
+          <label class="switch" for="hf">
+            <input type="checkbox" id="hf">
+            <span class="track" aria-hidden="true"></span>
+            <span>Hands-free</span>
+          </label>
+          <span class="hint" id="hint"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+_shots/
+_archive/
+node_modules/
+.netlify/
+.env
