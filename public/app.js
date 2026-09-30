@@ -69,7 +69,7 @@ const WORDS = [
 const VERDICTS = new Set(['correct','wrong_sense','missing_word','not_sentence','chat','skip']);
 const VERDICT_LABEL = {correct:'correct', wrong_sense:'wrong sense', missing_word:'word missing',
                        not_sentence:'needs a sentence', skip:'parked'};
-const DEFAULT_HINT = 'Ask “what does it mean?”, say “next” to skip, or “practise” and a word to go back to it.';
+const DEFAULT_HINT = 'Ask "what does it mean?", say "next" to skip, or "practise" and a word to go back to it.';
 
 const $ = id => document.getElementById(id);
 const synth = 'speechSynthesis' in window ? window.speechSynthesis : null;
@@ -287,14 +287,14 @@ function renderPanelRest(){
       h('h2', {class:'kp-title'}, 'Wordy'),
       h('p', {class:'kp-sub'}, 'Voice vocabulary tutor')),
     h('div', {class:'kp-sec'},
-      h('p', {class:'kp-desc'}, 'Teaches one word at a time, then listens while you use it in a sentence of your own and tells you how it landed.')),
+      h('p', {class:'kp-desc'}, 'Teaches you a word, then listens to you use it in your own sentence and tells you how you did.')),
     h('div', {class:'kp-sec'},
       h('div', {class:'facts'},
-        h('p', {class:'fact'}, h('b', null, 'Words: '), '10, picked from interviews and everyday work'),
-        h('p', {class:'fact'}, h('b', null, 'Checks: '), 'the word was said, it sits in a full sentence, the sense is right'),
-        h('p', {class:'fact'}, h('b', null, 'Retries: '), 'one on the spot, then the word comes back at the end'),
-        h('p', {class:'fact'}, h('b', null, 'Revisit: '), 'say “practise” and the word, or tap it in The set'),
-        h('p', {class:'fact'}, h('b', null, 'Voice: '), 'Chrome and Edge. Typing works everywhere'))));
+        h('p', {class:'fact'}, h('b', null, 'Words: '), '10 that come up a lot at work'),
+        h('p', {class:'fact'}, h('b', null, 'Checks: '), 'that you said the word, in a proper sentence, and meant the right thing'),
+        h('p', {class:'fact'}, h('b', null, 'Retries: '), 'one more go, then the word comes back at the end'),
+        h('p', {class:'fact'}, h('b', null, 'Revisit: '), 'say "practise" and the word, or tap it in The set'),
+        h('p', {class:'fact'}, h('b', null, 'Voice: '), 'Chrome and Edge, you can type anywhere'))));
 }
 function renderPanelWord(c){
   $('kpBody').replaceChildren(
@@ -374,7 +374,7 @@ function syncUI(){
   const input = $('input');
   input.disabled = locked && !S.listening;
   input.placeholder = S.listening ? 'Listening…'
-    : (!S.running ? 'Say or type “begin”' : (locked ? '' : 'Say or type your sentence'));
+    : (!S.running ? 'Say or type "begin"' : (locked ? '' : 'Say or type your sentence'));
   $('send').disabled = input.disabled || S.listening || !input.value.trim();
   $('mic').disabled = S.micBlocked || (locked && !S.listening);
   $('mic').classList.toggle('live', S.listening);
